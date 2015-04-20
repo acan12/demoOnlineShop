@@ -25,7 +25,6 @@ class PaymentController < ApplicationController
   # ajax generate TOTP
   def ajax_generate_token
     totp = ROTP::TOTP.new("base32secret3232")
-    totp.now
     
     render text: totp.now
   end
