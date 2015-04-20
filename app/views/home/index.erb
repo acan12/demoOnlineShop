@@ -1,0 +1,25 @@
+<% if params[:confirm].present? %>
+  <div style="padding: 0px 5px; text-align: center; color: yellow; background: #ababab;">
+    <h3><%= "Thank you , your purchase success!" %></h3>
+  </div>
+<% end %>
+
+<h1> Our Product: </h1>
+<br>
+<div style="margin-left: 20px;">
+  <table border=1>
+    <tr>
+      <th> Product</th>
+      <th> Quantity</th>
+      <th> </th>
+    </tr>
+    <% @products.each do |p| %>
+      <tr>
+        <td><%= p.name %></td>
+        <td><%= p.quantity %></td>
+        <td><%= link_to('Purchase', payment_path(p)) %></td>
+      </tr>
+    <% end %>
+</div>
+
+    

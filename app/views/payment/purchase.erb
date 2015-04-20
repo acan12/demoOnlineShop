@@ -1,0 +1,53 @@
+<h1> Process Purchase submit </h1>
+
+<%= form_for(@payment, url: verification_path(@payment), method: "post") do |f|%>
+  <table>
+    <tr>
+      <td><%= label_tag("Product :") %></td>
+      <td><%= label_tag(@payment.products[0].name) %></td>
+    </tr>
+    
+    <tr>  
+      <td><%= label_tag("Buyer :") %></td>
+      <td><%= @payment.user.first_name %> </td>
+    </tr>
+    
+    <tr>  
+      <td><%= label_tag("Credit Card Number :") %></td>
+      <td><%= @payment.ccnumber %> </td>
+    </tr>    
+    <tr>  
+      <td><%= label_tag("Quantity :") %></td>
+      <td><%= @payment.quantity %> </td>
+    </tr>
+    <tr>  
+      <td><%= label_tag("Total :") %></td>
+      <td>Rp. <%= @payment.products[0].price * @payment.quantity %> </td>
+    </tr>
+    
+    <tr>  
+      <td><%= f.text_field(:token) %></td>
+      <td><%= button_tag("Generate Token", :type => 'button', :class => "btn-token") %></td>
+    </tr>
+    
+    
+    
+    <tr><td><%= submit_tag("Continue to paid") %></td></tr>
+  </table>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      $('.btn-token').click(function() {
+          $.ajax({
+            url: '/ax/payment/token',
+            type: 'POST'
+          }).done(function(token){
+            console.log("token: "+token);
+            
+            $("#payment_token").val(token)
+          })
+      });
+  </script>
+    
+<% end %>

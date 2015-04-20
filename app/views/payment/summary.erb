@@ -1,0 +1,26 @@
+<h1> Show Transaction Form </h1>
+
+<%= form_for(verification_path, method: "post") do |f|%>
+  <table>
+    <tr>
+      <td><%= label_tag("Product :") %></td>
+      <td><%= label_tag(@product.name) %></td>
+    </tr>
+    <tr>  
+      <td><%= label_tag("User :") %></td>
+      <td><%= select_tag(:user_id, options_for_select(User.all.map {|u| ["#{u.first_name} #{u.last_name}", u.id]} ), :prompt => "Please select") %> </td>
+    </tr>
+    
+    <tr>  
+      <td><%= label_tag("Credit Card Number :") %></td>
+      <td><%= f.text_field(:ccnumber) %> </td>
+    </tr>    
+    <tr>  
+      <td><%= label_tag("Quantity :") %></td>
+      <td><%= f.text_field(:quantity) %> </td>
+    </tr>
+    
+    <tr><td><%= submit_tag("Purchase") %></td></tr>
+  </table>
+<% end %>
+
